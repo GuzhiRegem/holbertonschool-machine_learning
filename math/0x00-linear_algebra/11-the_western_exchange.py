@@ -2,8 +2,9 @@
 """
     module
 """
+import numpy as np
 
 
 def np_transpose(matrix):
     """ T """
-    return matrix.T
+    return np.array(matrix.T)
