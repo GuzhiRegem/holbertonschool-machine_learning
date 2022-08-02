@@ -12,8 +12,9 @@ norm_data = data - data_means
 _, _, Vh = np.linalg.svd(norm_data)
 pca_data = np.matmul(norm_data, Vh[:3].T)
 
+pca_data = pca_data.T
 ax = plt.figure().add_subplot(projection="3d")
-ax.scatter(pca_data[:,0].T, pca_data[:, 1].T, pca_data[:, 2].T, c=labels, cmap="plasma")
+ax.scatter(pca_data[0], pca_data[1], pca_data[2], c=labels, cmap="plasma")
 ax.set_xlabel("U1")
 ax.set_ylabel("U2")
 ax.set_zlabel("U3")
