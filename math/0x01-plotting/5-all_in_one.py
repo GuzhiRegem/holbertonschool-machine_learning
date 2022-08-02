@@ -59,7 +59,7 @@ plots[3].set_xlabel("Time (years)")
 plots[3].set_ylabel("Fraction Remaining")
 plots[3].set_title("Exponential Decay of Radioactive Elements")
 
-h_s = {"linewidth":1.0, "edgecolor":'k'}
+h_s = {"linewidth": 1.0, "edgecolor": 'k'}
 plots[4].hist(student_grades, list(range(0, 110, 10)), **h_s)
 plots[4].set_xlim(0, 100)
 plots[4].set_ylim(0, 30)
