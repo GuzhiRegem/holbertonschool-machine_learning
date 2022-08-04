@@ -6,7 +6,7 @@
 
 def poly_integral(poly, C=0):
     """ poly integral """
-    if type(C) != int or type(poly) != list or poly == 0:
+    if type(C) != int or type(poly) != list or poly == []:
         return None
     out = [C]
     if poly == [0]:
