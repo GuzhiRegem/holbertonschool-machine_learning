@@ -14,6 +14,6 @@ def poly_derivative(poly):
             out.append(i * poly[i])
     except Exception:
         return None
-    if out == []
+    if out == []:
         return [0]
     return out
