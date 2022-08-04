@@ -6,10 +6,6 @@
 
 def summation_i_squared(n):
     """ sum """
-    if type(n) != int:
+    if type(n) != int or n < 1:
         return None
-    if n < 1:
-        return None
-    if n == 1:
-        return 1
-    return (n * n) + summation_i_squared(n - 1)
+    return n * (n + 1) * (2 * n + 1) / 6
