@@ -9,7 +9,10 @@ def poly_integral(poly, C=0):
     if not type(C) in [int, float] or type(poly) != list:
         return None
     out = [C]
-    for i in range(len(poly)):
-        v = poly[i] / (i + 1)
-        out.append(int(v) if int(v) == v else v)
+    try:
+        for i in range(len(poly)):
+            v = poly[i] / (i + 1)
+            out.append(int(v) if int(v) == v else v)
+    except Exception:
+        return None
     return out
