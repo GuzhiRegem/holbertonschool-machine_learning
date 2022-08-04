@@ -6,7 +6,7 @@
 
 def summation_i_squared(n):
     """ sum """
-    if not type(n) in [int, float]:
+    if type(n) != int:
         return None
     if n < 1:
         return None
