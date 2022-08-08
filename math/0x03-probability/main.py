@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
 import numpy as np
-Poisson = __import__('poisson').Poisson
+Binomial = __import__('binomial').Binomial
 
 np.random.seed(0)
-data = np.random.poisson(5., 100).tolist()
-p1 = Poisson(data)
-print('F(9):', p1.cdf(9))
+data = np.random.binomial(50, 0.6, 100).tolist()
+b1 = Binomial(data)
+print('F(30):', b1.cdf(30))
 
-p2 = Poisson(lambtha=5)
-print('F(9):', p2.cdf(9))
+b2 = Binomial(n=50, p=0.6)
+print('F(30):', b2.cdf(30))
