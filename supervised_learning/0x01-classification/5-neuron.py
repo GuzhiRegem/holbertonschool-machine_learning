@@ -44,3 +44,14 @@ class Neuron:
     def cost(self, Y, A):
         """ cost """
         return -(Y * np.log(A) + (1 - Y) * np.log(1.0000001 - A)).mean()
+
+    def evaluate(self, X, Y):
+        """ evaluate """
+        A = self.forward_prop(X)
+        err = self.cost(Y, A)
+        return np.round(A).astype(int), err
+
+    def gradient_descent(self, X, Y, A, alpha=0.05):
+        """ gradient descent """
+        self.__b -= alpha * (np.sum(A - Y) / X.shape[1])
+        self.__W -= alpha * (np.dot(X, (A - Y).T).T / X.shape[1])

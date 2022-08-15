@@ -19,19 +19,23 @@ class Neuron:
 
     @property
     def W(self):
+        """ W getter """
         return self.__W
-    
+
     @property
     def b(self):
+        """ b getter """
         return self.__b
-    
+
     @property
     def A(self):
+        """ A getter """
         return self.__A
+
     def act_func(self, X):
-    
+        """ act """
         return 1/(1 + np.exp(-X))
-    
+
     def forward_prop(self, X):
         """ forward prop """
         self.__A = self.act_func(np.dot(self.__W, X) + self.__b)
