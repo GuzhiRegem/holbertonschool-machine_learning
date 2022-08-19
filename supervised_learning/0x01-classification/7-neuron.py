@@ -57,7 +57,8 @@ class Neuron:
         self.__b -= alpha * (np.sum(A - Y) / X.shape[1])
         self.__W -= alpha * (np.dot(X, (A - Y).T).T / X.shape[1])
 
-    def train(self, X, Y, iterations=5000, alpha=0.05, verbose=True, graph=True, step=100):
+    def train(self, X, Y, iterations=5000, alpha=0.05,
+              verbose=True, graph=True, step=100):
         """ train """
         if type(iterations) != int:
             raise TypeError("iterations must be an integer")
@@ -91,4 +92,3 @@ class Neuron:
             plt.title("Training Cost")
             plt.show()
         return out, err
-
