@@ -23,8 +23,6 @@ class DeepNeuralNetwork:
         self.weights = {}
         for lay in range(self.L):
             self.weights[f"b{lay + 1}"] = np.zeros((layers[lay], 1))
-            prev = nx
-            if (lay > 0):
-                prev = layers[lay - 1]
-            self.weights[f"W{lay + 1}"] = np.random.randn(layers[lay], prev)
+            prev = layers[lay - 1] if (lay > 0) else nx
+            self.weights[f"W{lay + 1}"] = np.random.normal(0.0, 1.0, (layers[lay], prev))
             self.weights[f"W{lay + 1}"] *= np.sqrt(2/prev)
