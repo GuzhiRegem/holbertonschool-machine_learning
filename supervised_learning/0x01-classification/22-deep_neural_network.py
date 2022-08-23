@@ -72,10 +72,10 @@ class DeepNeuralNetwork:
         """ gradient """
         m = Y.shape[1]
         dZ = cache["A" + str(self.L)] - Y
-        for lay in reversed(list(range(1, self.L + 1))):
+        for lay in range(self.L, 0, -1):
             A = self.cache["A" + str(lay - 1)]
             db = np.sum(dZ, axis=1, keepdims=True) / m
-            dW = np.dot(dZ, A.T)
+            dW = np.dot(dZ, A.T) / m
             dZ = np.dot(self.weights["W" + str(lay)].T, dZ) * (A * (1 - A))
             self.__weights["W" + str(lay)] -= dW * alpha
             self.__weights["b" + str(lay)] -= db * alpha
