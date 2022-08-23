@@ -4,7 +4,6 @@
 """
 import numpy as np
 import matplotlib.pyplot as plt
-import pickle
 
 
 class DeepNeuralNetwork:
@@ -116,6 +115,7 @@ class DeepNeuralNetwork:
 
     def save(self, filename):
         """ save """
+        import pickle
         if filename[-4:] != ".pkl":
             filename += ".pkl"
         with open(filename, "wb") as f:
@@ -124,6 +124,7 @@ class DeepNeuralNetwork:
     @staticmethod
     def load(filename):
         """ load """
+        import pickle
         try:
             with open(filename, "rb") as f:
                 out = pickle.load(f)
