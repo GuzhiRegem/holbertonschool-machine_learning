@@ -54,20 +54,28 @@ class DeepNeuralNetwork:
         self.__cache["A0"] = X
         for lay in range(1, self.L + 1):
             prev = self.cache["A" + str(lay - 1)]
-            Z = np.dot(self.weights["W" + str(lay)], prev)
-            Z += self.weights["b" + str(lay)]
-            self.__cache["A" + str(lay)] = self.act_func(Z)
+            w = self.weights["W" + str(lay)]
+            b = self.weights["b" + str(lay)]
+            Z = np.dot(w, prev) + b
+            if lay == self.L:
+                t = np.exp(Z)
+                A = t / sum(t)
+            else:
+                A = self.act_func(Z)
+            self.__cache["A" + str(lay)] = A
         return self.cache["A" + str(lay)], self.cache
 
     def cost(self, Y, A):
         """ cost """
-        return -(Y * np.log(A) + (1 - Y) * np.log(1.0000001 - A)).mean()
+        m = Y.shape[1]
+        err = np.sum(-np.sum(Y * np.log(A), axis=0)) / m
+        return err
 
     def evaluate(self, X, Y):
         """ eval """
         A, _ = self.forward_prop(X)
         err = self.cost(Y, A)
-        return np.round(A).astype(int), err
+        return np.where(A >= 0.5, 1, 0), err
 
     def gradient_descent(self, Y, cache, alpha=0.05):
         """ gradient """
