@@ -7,7 +7,7 @@ import numpy as np
 
 def f(key, value):
     """ function for str keys """
-    return str(key) + str(value)
+    return "{}{}".format(key, value)
 
 
 class DeepNeuralNetwork:
