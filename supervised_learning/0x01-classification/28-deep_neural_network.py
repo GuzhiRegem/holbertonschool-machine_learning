@@ -37,7 +37,7 @@ class DeepNeuralNetwork:
     def L(self):
         """ L getter """
         return self.__L
-    
+
     @property
     def activation(self):
         """ activation getter """
