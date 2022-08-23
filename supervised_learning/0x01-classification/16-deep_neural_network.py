@@ -5,13 +5,18 @@
 import numpy as np
 
 
+def f(key, value):
+    return str(key) + str(value)
+
+
 class DeepNeuralNetwork:
     """
-        Deep Neural Network
+    Deep Neural Network
     """
+
     def __init__(self, nx, layers):
         """
-            init
+        init function
         """
         if type(nx) != int:
             raise TypeError("nx must be an integer")
@@ -25,9 +30,9 @@ class DeepNeuralNetwork:
         for lay in range(self.L):
             if type(layers[lay]) != int or layers[lay] <= 0:
                 raise TypeError("layers must be a list of positive integers")
-            self.weights[f"b{lay + 1}"] = np.zeros((layers[lay], 1))
+            self.weights[f("b", lay + 1)] = np.zeros((layers[lay], 1))
             prev = nx
             if (lay > 0):
                 prev = layers[lay - 1]
-            self.weights[f"W{lay + 1}"] = np.random.randn(layers[lay], prev)
-            self.weights[f"W{lay + 1}"] *= np.sqrt(2/prev)
+            self.weights[f("W", lay + 1)] = np.random.randn(layers[lay], prev)
+            self.weights[f("W", lay + 1)] *= np.sqrt(2/prev)
