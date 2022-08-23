@@ -8,24 +8,26 @@ import numpy as np
 class DeepNeuralNetwork:
     """ Deep Neural Network """
     def __init__(self, nx, layers):
-        """ init """
+        """ init function """
         if type(nx) != int:
             raise TypeError("nx must be an integer")
         if nx < 1:
             raise ValueError("nx must be a positive integer")
-        if type(layers) != list:
+        if type(layers) != list or layers == []:
             raise TypeError("layers must be a list of positive integers")
-        for val in layers:
-            if type(val) != int or val <= 0:
-                raise TypeError("layers must be a list of positive integers")
         self.__L = len(layers)
         self.__cache = {}
         self.__weights = {}
-        for lay in range(self.L):
-            self.weights[f"b{lay + 1}"] = np.zeros((layers[lay], 1))
-            prev = layers[lay - 1] if (lay > 0) else nx
-            self.weights[f"W{lay + 1}"] = np.random.randn(layers[lay], prev)
-            self.weights[f"W{lay + 1}"] *= np.sqrt(2/prev)
+        for lay in range(self.__L):
+            if type(layers[lay]) != int or layers[lay] < 0:
+                raise TypeError("layers must be a list of positive integers")
+            s_l = str(lay + 1)
+            self.__weights["b" + s_l] = np.zeros((layers[lay], 1))
+            prev = nx
+            if (lay > 0):
+                prev = layers[lay - 1]
+            self.__weights["W" + s_l] = np.random.randn(layers[lay], prev)
+            self.__weights["W" + s_l] *= np.sqrt(2/prev)
 
     @property
     def L(self):
@@ -50,10 +52,11 @@ class DeepNeuralNetwork:
         """ forward prop """
         self.__cache["A0"] = X
         for lay in range(1, self.L + 1):
-            prev = self.cache[f"A{lay - 1}"]
-            Z = np.dot(self.weights[f"W{lay}"], prev) + self.weights[f"b{lay}"]
-            self.__cache[f"A{lay}"] = self.act_func(Z)
-        return self.cache[f"A{lay}"], self.cache
+            prev = self.cache["A" + str(lay - 1)]
+            Z = np.dot(self.weights["W" + str(lay)], prev)
+            Z += self.weights["b" + str(lay)]
+            self.__cache["A" + str(lay)] = self.act_func(Z)
+        return self.cache["A" + str(lay)], self.cache
 
     def cost(self, Y, A):
         """ cost """
@@ -68,14 +71,14 @@ class DeepNeuralNetwork:
     def gradient_descent(self, Y, cache, alpha=0.05):
         """ gradient """
         m = Y.shape[1]
-        dZ = cache[f"A{self.L}"] - Y
+        dZ = cache["A" + str(self.L)] - Y
         for lay in reversed(list(range(1, self.L + 1))):
-            A = self.cache[f"A{lay - 1}"]
+            A = self.cache["A" + str(lay - 1)]
             db = np.sum(dZ, axis=1, keepdims=True) / m
             dW = np.dot(dZ, A.T)
-            dZ = np.dot(self.weights[f"W{lay}"].T, dZ) * (A * (1 - A))
-            self.__weights[f"W{lay}"] -= dW * alpha
-            self.__weights[f"b{lay}"] -= db * alpha
+            dZ = np.dot(self.weights["W" + str(lay)].T, dZ) * (A * (1 - A))
+            self.__weights["W" + str(lay)] -= dW * alpha
+            self.__weights["b" + str(lay)] -= db * alpha
 
     def train(self, X, Y, iterations=5000, alpha=0.05):
         """ train """
