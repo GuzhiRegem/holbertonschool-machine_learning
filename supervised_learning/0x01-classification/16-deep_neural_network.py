@@ -6,9 +6,13 @@ import numpy as np
 
 
 class DeepNeuralNetwork:
-    """ Deep Neural Network """
+    """
+        Deep Neural Network
+    """
     def __init__(self, nx, layers):
-        """ init """
+        """
+            init
+        """
         if type(nx) != int:
             raise TypeError("nx must be an integer")
         if nx < 1:
