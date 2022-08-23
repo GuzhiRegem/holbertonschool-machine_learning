@@ -5,11 +5,6 @@
 import numpy as np
 
 
-def f(key, value):
-    """ function for str keys """
-    return "{}{}".format(key, value)
-
-
 class DeepNeuralNetwork:
     """
     Deep Neural Network
@@ -29,9 +24,10 @@ class DeepNeuralNetwork:
         for lay in range(self.L):
             if type(layers[lay]) != int or layers[lay] < 0:
                 raise TypeError("layers must be a list of positive integers")
-            self.weights[f("b", lay + 1)] = np.zeros((layers[lay], 1))
+            s_l = str(lay + 1)
+            self.weights["b" + s_l] = np.zeros((layers[lay], 1))
             prev = nx
             if (lay > 0):
                 prev = layers[lay - 1]
-            self.weights[f("W", lay + 1)] = np.random.randn(layers[lay], prev)
-            self.weights[f("W", lay + 1)] *= np.sqrt(2/prev)
+            self.weights["W" + s_l] = np.random.randn(layers[lay], prev)
+            self.weights["W" + s_l] *= np.sqrt(2/prev)
