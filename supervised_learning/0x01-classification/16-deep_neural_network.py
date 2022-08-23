@@ -6,6 +6,7 @@ import numpy as np
 
 
 def f(key, value):
+    """ function for str keys """
     return str(key) + str(value)
 
 
@@ -15,9 +16,7 @@ class DeepNeuralNetwork:
     """
 
     def __init__(self, nx, layers):
-        """
-        init function
-        """
+        """ init function """
         if type(nx) != int:
             raise TypeError("nx must be an integer")
         if nx < 1:
