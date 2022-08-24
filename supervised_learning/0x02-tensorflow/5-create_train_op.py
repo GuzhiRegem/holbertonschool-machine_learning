@@ -5,5 +5,6 @@
 import tensorflow.compat.v1 as tf
 
 
-def create_placeholders(nx, classes):
-    """ function """
+def create_train_op(loss, alpha):
+    """ create train op """
+    return tf.train.GradientDescentOptimizer(alpha).minimize(loss)
