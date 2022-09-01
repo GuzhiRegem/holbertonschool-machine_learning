@@ -37,8 +37,8 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid,
                 if (idx + 1) * batch_size > m:
                     b_size = m - idx
                 train_dict = {
-                    x: x_shuff[idx : idx + b_size],
-                    y: y_shuff[idx : idx + b_size]
+                    x: x_shuff[idx: idx + b_size],
+                    y: y_shuff[idx: idx + b_size]
                 }
                 if it != 0 and (it % 100) == 0:
                     step_cost = sess.run(loss, feed_dict=train_dict)
