@@ -2,8 +2,9 @@
 """
     module
 """
+import numpy as np
 
 
 def normalization_constants(X):
     """ normalization """
-    return X.mean(axis=0), X.std(axis=0)
+    return np.mean(X, axis=0), np.std(X, axis=0)
