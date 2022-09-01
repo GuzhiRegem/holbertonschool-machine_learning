@@ -5,6 +5,8 @@
 import tensorflow.compat.v1 as tf
 
 
-def create_momentum_op(loss, alpha, beta1):
+def learning_rate_decay(alpha, decay_rate, global_step, decay_step):
     """ tf func """
-    return tf.train.MomentumOptimizer(alpha, beta1).minimize(loss)
+    return tf.compat.v1.train.inverse_time_decay(
+        alpha, global_step, decay_step, decay_rate, staircase=True
+    ) 

@@ -5,4 +5,8 @@
 
 
 def batch_norm(Z, gamma, beta, epsilon):
-    """ batch norm """
+    """ function """
+    mean = Z.mean(axis=0)
+    var = Z.var(axis=0)
+    norm = (Z - mean) / np.sqrt(var + epsilon)
+    return (gamma * norm) + beta
