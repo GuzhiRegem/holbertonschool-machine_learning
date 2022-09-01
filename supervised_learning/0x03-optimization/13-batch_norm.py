@@ -2,6 +2,7 @@
 """
     module
 """
+import numpy as np
 
 
 def batch_norm(Z, gamma, beta, epsilon):
