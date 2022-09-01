@@ -1,34 +1,57 @@
 #!/usr/bin/env python3
 
+import matplotlib.pyplot as plt
 import numpy as np
-import tensorflow.compat.v1 as tf
-tf.disable_eager_execution()
-train_mini_batch = __import__('3-mini_batch').train_mini_batch
+update_variables_RMSProp = __import__('7-RMSProp').update_variables_RMSProp
 
-def one_hot(Y, classes):
-    """convert an array to a one-hot matrix"""
-    oh = np.zeros((Y.shape[0], classes))
-    oh[np.arange(Y.shape[0]), Y] = 1
-    return oh
+def forward_prop(X, W, b):
+    Z = np.matmul(X, W) + b
+    A = 1 / (1 + np.exp(-Z))
+    return A
+
+def calculate_grads(Y, A, W, b):
+    m = Y.shape[0]
+    dZ = A - Y
+    dW = np.matmul(X.T, dZ) / m
+    db = np.sum(dZ, axis=1, keepdims=True) / m
+    return dW, db
+
+def calculate_cost(Y, A):
+    m = Y.shape[0]
+    loss = - (Y * np.log(A) + (1 - Y) * np.log(1 - A))
+    cost = np.sum(loss) / m
+
+    return cost
 
 if __name__ == '__main__':
-    lib= np.load('../data/MNIST.npz')
-    X_train_3D = lib['X_train']
-    Y_train = lib['Y_train']
-    X_train = X_train_3D.reshape((X_train_3D.shape[0], -1))
-    Y_train_oh = one_hot(Y_train, 10)
-    X_valid_3D = lib['X_valid']
-    Y_valid = lib['Y_valid']
-    X_valid = X_valid_3D.reshape((X_valid_3D.shape[0], -1))
-    Y_valid_oh = one_hot(Y_valid, 10)
+    lib_train = np.load('../data/Binary_Train.npz')
+    X_3D, Y = lib_train['X'], lib_train['Y'].T
+    X = X_3D.reshape((X_3D.shape[0], -1))
 
-    layer_sizes = [256, 256, 10]
-    activations = [tf.nn.tanh, tf.nn.tanh, None]
-    alpha = 0.01
-    iterations = 5000
-
+    nx = X.shape[1]
     np.random.seed(0)
-    save_path = train_mini_batch(X_train, Y_train_oh, X_valid, Y_valid_oh,
-                                 epochs=10, load_path='./graph.ckpt',
-                                 save_path='./model.ckpt')
-    print('Model saved in path: {}'.format(save_path))
+    W = np.random.randn(nx, 1)
+    b = 0
+    dW_prev = np.zeros((nx, 1))
+    db_prev = 0
+    for i in range(1000):
+        A = forward_prop(X, W, b)
+        if not (i % 100):
+            cost = calculate_cost(Y, A)
+            print('Cost after {} iterations: {}'.format(i, cost))
+        dW, db = calculate_grads(Y, A, W, b)
+        W, dW_prev = update_variables_RMSProp(0.001, 0.9, 1e-8, W, dW, dW_prev)
+        b, db_prev = update_variables_RMSProp(0.001, 0.9, 1e-8, b, db, db_prev)
+    A = forward_prop(X, W, b)
+    cost = calculate_cost(Y, A)
+    print('Cost after {} iterations: {}'.format(1000, cost))
+
+    Y_pred = np.where(A >= 0.5, 1, 0)
+    fig = plt.figure(figsize=(10, 10))
+    for i in range(100):
+        fig.add_subplot(10, 10, i + 1)
+        plt.imshow(X_3D[i])
+        plt.title(str(Y_pred[i, 0]))
+        plt.axis('off')
+    plt.tight_layout()
+    plt.show()
