@@ -2,6 +2,7 @@
 
 import numpy as np
 dropout_forward_prop = __import__('4-dropout_forward_prop').dropout_forward_prop
+dropout_gradient_descent = __import__('5-dropout_gradient_descent').dropout_gradient_descent
 
 
 def one_hot(Y, classes):
@@ -29,5 +30,6 @@ if __name__ == '__main__':
     weights['b3'] = np.zeros((10, 1))
 
     cache = dropout_forward_prop(X_train, weights, 3, 0.8)
-    for k, v in sorted(cache.items()):
-        print(k, v)
+    print(weights['W2'])
+    dropout_gradient_descent(Y_train_oh, weights, cache, 0.1, 0.8, 3)
+    print(weights['W2'])
