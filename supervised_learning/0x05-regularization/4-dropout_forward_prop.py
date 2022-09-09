@@ -18,5 +18,7 @@ def dropout_forward_prop(X, weights, L, keep_prob):
             A = t / sum(t)
         else:
             A = (np.exp(Z)-np.exp(-Z))/(np.exp(Z)+np.exp(-Z))
-        cache["A" + str(lay)] = A
+        d_layer = np.random.rand(A.shape[0], A.shape[1]) < keep_prob
+        cache["A" + str(lay)] = (A * d_layer) / keep_prob
+        cache["D" + str(lay)] = d_layer.astype(int)
     return cache
