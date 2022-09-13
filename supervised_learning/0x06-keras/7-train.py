@@ -18,7 +18,7 @@ def train_model(network, data, labels, batch_size, epochs,
             def f(step):
                 return alpha / (1 + decay_rate * step)
             calls.append(K.callbacks.LearningRateScheduler(f, verbose=1))
-    network.fit(
+    return network.fit(
         data,
         labels,
         batch_size=batch_size,
