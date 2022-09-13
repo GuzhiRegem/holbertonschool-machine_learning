@@ -2,7 +2,6 @@
 """
     module
 """
-from more_itertools import first
 import tensorflow.keras as K
 
 
