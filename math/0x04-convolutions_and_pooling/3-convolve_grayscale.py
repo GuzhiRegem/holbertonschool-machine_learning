@@ -20,9 +20,9 @@ def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
                  'constant', constant_values=0)
     sh = ((siz + (2 * np.array((ph, pw))) - ks) // st) + 1
     out = np.zeros(shape=(images.shape[0], sh[0], sh[1]))
-    for x in range(out.shape[1]):
-        for y in range(out.shape[2]):
-            _x, _y = (x * 2, y * 2)
-            sp = img[:, _x: _x + ks[0], _y: _y + ks[1]]
-            out[:, x, y] = np.sum(sp * kernel, axis=(1, 2))
+    ite = (siz + (2 * ph) - ks + 1)
+    for i, x in enumerate(list(range(0, ite[0], st[0]))):
+        for j, y in enumerate(list(range(0, ite[1], st[1]))):
+            sp = img[:, x: x + ks[0], y: y + ks[1]]
+            out[:, i, j] = np.sum(sp * kernel, axis=(1, 2))
     return out
