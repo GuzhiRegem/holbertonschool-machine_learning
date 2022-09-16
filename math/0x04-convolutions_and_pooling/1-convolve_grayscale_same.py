@@ -8,7 +8,7 @@ import numpy as np
 def convolve_grayscale_same(images, kernel):
     """ convolve """
     ks = np.array(kernel.shape)
-    pad = np.ceil(ks - 1).astype(int)
+    pad = np.ceil((ks - 1) / 2).astype(int)
     img = np.pad(images, ((0, 0), (pad[0], pad[0]), (pad[1], pad[1])),
                  'constant', constant_values=0)
     out = np.zeros(shape=images.shape)
