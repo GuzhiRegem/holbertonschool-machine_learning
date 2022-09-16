@@ -8,12 +8,11 @@ import numpy as np
 def convolve_grayscale_padding(images, kernel, padding):
     """ convolve """
     ks = np.array(kernel.shape)
-    pad = np.ceil((ks - 1) / 2).astype(int)
-    img = np.pad(images, ((0, 0), (padding[0], padding[0]),
-                 (padding[1], padding[1])),
+    ph, pw = padding
+    img = np.pad(images, ((0, 0), (ph, ph), (pw, pw)),
                  'constant', constant_values=0)
-    sh = np.array(img.shape) - np.pad(pad * 2, (1, 0))
-    out = np.zeros(shape=(sh))
+    sh = np.array(images.shape[1:]) + (np.array(padding) * 2) - ks + 1
+    out = np.zeros(shape=(images.shape[0], sh[0], sh[1]))
     for x in range(out.shape[1]):
         for y in range(out.shape[2]):
             sp = img[:, x: x + ks[0], y: y + ks[1]]
