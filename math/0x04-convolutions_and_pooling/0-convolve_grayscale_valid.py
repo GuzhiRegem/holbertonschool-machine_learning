@@ -14,5 +14,5 @@ def convolve_grayscale_valid(images, kernel):
     for x in range(out.shape[1]):
         for y in range(out.shape[2]):
             sp = images[:, x: x + 2 + pad[0], y: y + 2 + pad[1]]
-            out[:, x, y] = np.sum(np.sum(sp * kernel, axis=1), axis=1)
+            out[:, x, y] = np.tensordot(sp, kernel)
     return out
