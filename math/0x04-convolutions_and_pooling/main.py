@@ -14,7 +14,7 @@ if __name__ == '__main__':
     images_conv = convolve_grayscale_valid(images, kernel)
     print(images_conv.shape)
 
-    plt.imshow(images[0], cmap='gray')
+    plt.imshow(images[1], cmap='gray')
     plt.show()
-    plt.imshow(images_conv[0], cmap='gray')
+    plt.imshow(images_conv[1], cmap='gray')
     plt.show()
