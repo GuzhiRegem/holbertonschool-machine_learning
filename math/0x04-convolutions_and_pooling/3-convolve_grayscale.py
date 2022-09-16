@@ -8,16 +8,17 @@ import numpy as np
 def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
     """ convolve """
     ks = np.array(kernel.shape)
-    if type(padding) == tuple:
-        ph, pw = padding
+    siz = np.array(images.shape[1:])
+    st = np.array(stride)
     if padding == "valid":
         ph, pw = (0, 0)
-    if padding == "same":
-        ph, pw = tuple(np.ceil((ks - 1) // 2).astype(int))
+    elif padding == "same":
+        ph, pw = ((((siz - 1) * st) + ks - siz) // 2) + 1
+    else:
+        ph, pw = padding
     img = np.pad(images, ((0, 0), (ph, ph), (pw, pw)),
                  'constant', constant_values=0)
-    siz = np.array(images.shape[1:])
-    sh = ((siz + (2 * np.array((ph, pw))) - ks) // np.array(stride)) + 1
+    sh = ((siz + (2 * np.array((ph, pw))) - ks) // st) + 1
     out = np.zeros(shape=(images.shape[0], sh[0], sh[1]))
     for x in range(out.shape[1]):
         for y in range(out.shape[2]):
