@@ -6,7 +6,7 @@ import numpy as np
 
 
 def convolve_grayscale_same(images, kernel):
-    pad = kernel.shape
+    pad = np.array(kernel.shape)
     img = np.pad(images, ((0, 0), pad // 2, pad // 2))
     out = np.zeros(shape=images.shape)
     for x in range(out.shape[1]):
