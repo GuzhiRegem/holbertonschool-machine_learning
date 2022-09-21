@@ -30,5 +30,4 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
             for j, y in enumerate(list(range(0, ite[1], st[1]))):
                 sp = img[:, x: x + ks[0], y: y + ks[1], :]
                 out[:, i, j, k_idx] = np.sum(sp * kernel, axis=(1, 2, 3))
-    
     return activation(out + b)
