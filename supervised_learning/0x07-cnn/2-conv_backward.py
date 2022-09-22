@@ -4,6 +4,7 @@
 """
 import numpy as np
 
+
 def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     """ conv forward """
     m, h_new, w_new, c_new = dZ.shape
