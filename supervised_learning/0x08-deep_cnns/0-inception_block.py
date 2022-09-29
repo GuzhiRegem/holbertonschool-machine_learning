@@ -8,7 +8,11 @@ import tensorflow.keras as K
 def inception_block(A_prev, filters):
     """ inception_block """
     init = K.initializers.he_normal()
-    act = {"activation": K.activations.relu, "kernel_initializer": init, "padding": "same"}
+    act = {
+            "activation": K.activations.relu,
+            "kernel_initializer":
+            init, "padding": "same"
+    }
     L1 = K.layers.Conv2D(filters[0], 1, **act)(A_prev)
     L2 = K.layers.Conv2D(filters[1], 1, **act)(A_prev)
     L3 = K.layers.Conv2D(filters[2], 3, **act)(L2)
