@@ -20,7 +20,6 @@ def inception_network():
     X = K.Input(shape=(224, 224, 3))
     out = L.Conv2D(64, 7, strides=2, **act)(X)
     out = L.MaxPooling2D(pool_size=3, strides=2, **pad)(out)
-    out = L.Conv2D(64, 1, strides=1, **act)(out)
     out = L.Conv2D(192, 3, strides=1, **act)(out)
     out = L.MaxPooling2D(pool_size=3, strides=2, **pad)(out)
     out = inception_block(out, [64, 96, 128, 16, 32, 32])
