@@ -22,4 +22,5 @@ def dense_block(X, nb_filters, growth_rate, layers):
         out = ac(L.BatchNormalization(axis=3)(out))
         out = L.Conv2D(growth_rate, 3, **act)(out)
         X = L.concatenate([X, out])
+        nb_filters += growth_rate
     return X, nb_filters
