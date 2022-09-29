@@ -12,7 +12,7 @@ def inception_network():
     act = {
             "activation": K.activations.relu,
             "kernel_initializer": init,
-            **pad
+            "padding": "same"
     }
 
     X = K.Input(shape=(224, 224, 3))
