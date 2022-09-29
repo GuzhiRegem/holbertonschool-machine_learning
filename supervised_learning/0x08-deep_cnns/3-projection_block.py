@@ -23,5 +23,5 @@ def projection_block(A_prev, filters, s=2):
     out = L.Conv2D(filters[2], 1, **act)(out)
     out = L.BatchNormalization(axis=3)(out)
     inp = L.Conv2D(filters[2], 1, strides=s, **act)(A_prev)
-    inp = ac(L.BatchNormalization(axis=3)(inp))
+    inp = L.BatchNormalization(axis=3)(inp)
     return ac(L.Add()([out, inp]))
