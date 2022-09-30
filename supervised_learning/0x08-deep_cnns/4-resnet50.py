@@ -12,12 +12,12 @@ def resnet50():
     init = K.initializers.he_normal()
     act = {"kernel_initializer": init, "padding": "same"}
     L = K.layers
+
     def block(lis, prev, amount, s=2):
         o = projection_block(prev, lis, s)
         for i in range(amount - 1):
             o = identity_block(o, lis)
         return o
-
     X = K.Input(shape=(224, 224, 3))
     out = L.Conv2D(64, 7, strides=2, **act)(X)
     out = L.BatchNormalization(axis=3)(out)
