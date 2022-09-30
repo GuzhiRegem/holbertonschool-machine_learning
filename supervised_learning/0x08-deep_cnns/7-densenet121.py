@@ -8,7 +8,7 @@ transition_layer = __import__('6-transition_layer').transition_layer
 
 
 def densenet121(growth_rate=32, compression=1.0):
-    """ inception_network """
+    """ densenet con codigo hiper comprimido xd """
     init, L = K.initializers.he_normal(), K.layers
     act = {"kernel_initializer": init, "padding": "same"}
     X, nb_filters = K.Input(shape=(224, 224, 3)), growth_rate * 2

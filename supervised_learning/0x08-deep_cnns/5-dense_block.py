@@ -6,7 +6,7 @@ import tensorflow.keras as K
 
 
 def dense_block(X, nb_filters, growth_rate, layers):
-    """ identity_block """
+    """ dense_block """
     init = K.initializers.he_normal()
     act = {
             "kernel_initializer": init,

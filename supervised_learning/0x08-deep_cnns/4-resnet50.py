@@ -8,7 +8,7 @@ projection_block = __import__('3-projection_block').projection_block
 
 
 def resnet50():
-    """ inception_network """
+    """ resnet50 """
     init = K.initializers.he_normal()
     act = {"kernel_initializer": init, "padding": "same"}
     L = K.layers

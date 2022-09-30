@@ -6,7 +6,7 @@ import tensorflow.keras as K
 
 
 def projection_block(A_prev, filters, s=2):
-    """ identity_block """
+    """ projection_block """
     init = K.initializers.he_normal()
     act = {
             "kernel_initializer": init,
