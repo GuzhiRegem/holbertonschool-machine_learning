@@ -11,7 +11,7 @@ def densenet121(growth_rate=32, compression=1.0):
     """ inception_network """
     init, L = K.initializers.he_normal(), K.layers
     act = {"kernel_initializer": init, "padding": "same"}
-    X, nb_filters_ = K.Input(shape=(224, 224, 3)), 64
+    X, nb_filters_ = K.Input(shape=(224, 224, 3)), growth_rate * 2
     out = L.Activation('relu')(L.BatchNormalization()(X))
     out = L.Conv2D(64, 7, strides=2, **act)(out)
     out_ = L.MaxPooling2D(pool_size=3, strides=2, padding="same")(out)
