@@ -29,23 +29,34 @@ def determinant_fast(A):
     return product
 
 
-def determinant(matrix):
-    """ determinant """
+def minor(matrix):
+    """minor"""
     if (type(matrix) != list):
         raise TypeError("matrix must be a list of lists")
     n = len(matrix)
     if n == 0:
         raise TypeError("matrix must be a list of lists")
-    if n == 1:
-        if matrix[0] == []:
-            return 1
-        if type(matrix[0]) != list:
-            raise TypeError("matrix must be a list of lists")
-        return matrix[0][0]
     for val in matrix:
         if type(val) != list:
             raise TypeError("matrix must be a list of lists")
         if len(val) != n:
-            raise ValueError("matrix must be a square matrix")
-    res = determinant_fast(matrix)
-    return round(res)
+            raise ValueError("matrix must be a non-empty square matrix")
+    if n == 1:
+        return 1
+    out = copy_matrix(matrix)
+    for y in range(n):
+        for x in range(n):
+            tmp = []
+            for y2 in range(n):
+                if y2 == y:
+                    continue
+                row = []
+                for x2 in range(n):
+                    if x2 == x:
+                        continue
+                    row.append(matrix[y2][x2])
+                tmp.append(row)
+            out[y][x] = round(determinant_fast(tmp))
+    return out
+            
+
