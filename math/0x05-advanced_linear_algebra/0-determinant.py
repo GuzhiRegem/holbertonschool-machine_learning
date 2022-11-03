@@ -19,7 +19,7 @@ def determinant_fast(A):
     for fd in range(n):
         for i in range(fd+1, n):
             if AM[fd][fd] == 0:
-                AM[fd][fd] == 1.0e-18
+                AM[fd][fd] == 1.0e-17
             crScaler = AM[i][fd] / AM[fd][fd]
             for j in range(n):
                 AM[i][j] = AM[i][j] - crScaler * AM[fd][j]
