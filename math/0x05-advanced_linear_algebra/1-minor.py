@@ -80,5 +80,3 @@ def minor(matrix):
                 tmp.append(row)
             out[y][x] = determinant(tmp)
     return out
-            
-
