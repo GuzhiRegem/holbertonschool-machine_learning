@@ -64,7 +64,7 @@ def minor(matrix):
         if len(val) != n:
             raise ValueError("matrix must be a non-empty square matrix")
     if n == 1:
-        return 1
+        return [[1]]
     out = copy_matrix(matrix)
     for y in range(n):
         for x in range(n):

@@ -15,6 +15,10 @@ if __name__ == '__main__':
     print(minor(mat3))
     print(minor(mat4))
     try:
+        minor([[]])
+    except Exception as e:
+        print(e)
+    try:
         minor(mat5)
     except Exception as e:
         print(e)
