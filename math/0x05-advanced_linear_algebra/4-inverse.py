@@ -105,9 +105,11 @@ def matrix_transpose(matrix):
 def inverse(matrix):
     """ inverse """
     adjugate = matrix_transpose(cofactor(matrix))
-    det = 1 / determinant(matrix)
+    det = determinant(matrix)
+    if determinant == 0:
+        return None
     n = len(matrix)
     for y in range(n):
         for x in range(n):
-            adjugate[y][x] *= det
+            adjugate[y][x] *= 1 / det
     return adjugate
