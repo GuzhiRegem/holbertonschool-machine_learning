@@ -42,6 +42,10 @@ def determinant(matrix):
         if type(matrix[0]) != list:
             raise TypeError("matrix must be a list of lists")
         return matrix[0][0]
+    if n == 2:
+        ad = matrix[0][0] * matrix[1][1]
+        bc = matrix[0][1] * matrix[1][0]
+        return ad - bc
     for val in matrix:
         if type(val) != list:
             raise TypeError("matrix must be a list of lists")
