@@ -106,7 +106,7 @@ def inverse(matrix):
     """ inverse """
     adjugate = matrix_transpose(cofactor(matrix))
     det = determinant(matrix)
-    if determinant == 0:
+    if det == 0:
         return None
     n = len(matrix)
     for y in range(n):
