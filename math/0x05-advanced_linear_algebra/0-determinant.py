@@ -65,5 +65,5 @@ def determinant(matrix):
         return 1
     if len(matrix) != len(matrix[0]):
         raise ValueError("matrix must be a square matrix")
-    res = determinant_fast(matrix)
-    return int(res)
+    res = determinant_recursive(matrix)
+    return res
