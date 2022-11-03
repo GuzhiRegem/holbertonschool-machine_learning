@@ -66,4 +66,4 @@ def determinant(matrix):
     if len(matrix) != len(matrix[0]):
         raise ValueError("matrix must be a square matrix")
     res = determinant_fast(matrix)
-    return int(res) if int(res) == res else res
+    return int(res)
