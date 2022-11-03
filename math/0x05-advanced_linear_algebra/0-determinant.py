@@ -2,7 +2,6 @@
 """
     module
 """
-import numpy as np
 
 
 def determinant(matrix):
@@ -41,5 +40,5 @@ def determinant(matrix):
             total = total * num1  # Det(kA)=kDet(A);
     for i in range(0, n):
         det = det*matrix[i][i]
- 
+
     return int(det/total)  # Det(kA)/k=Det(A);
