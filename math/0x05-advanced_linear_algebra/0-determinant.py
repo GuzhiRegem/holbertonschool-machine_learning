@@ -33,13 +33,19 @@ def determinant(matrix):
     """ determinant """
     if (type(matrix) != list):
         raise TypeError("matrix must be a list of lists")
-    if len(matrix) == 0:
+    n = len(matrix)
+    if n == 0:
         raise TypeError("matrix must be a list of lists")
-    if type(matrix[0]) != list:
-        raise TypeError("matrix must be a list of lists")
-    if matrix[0] == []:
-        return 1
-    if len(matrix) != len(matrix[0]):
-        raise ValueError("matrix must be a square matrix")
+    if n == 1:
+        if matrix[0] == []:
+            return 1
+        if type(matrix[0]) != list:
+            raise TypeError("matrix must be a list of lists")
+        return matrix[0][0]
+    for val in matrix:
+        if type(val) != list:
+            raise TypeError("matrix must be a list of lists")
+        if len(val) != n:
+            raise ValueError("matrix must be a square matrix")
     res = determinant_fast(matrix)
     return int(res)
