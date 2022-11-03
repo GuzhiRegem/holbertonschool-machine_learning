@@ -9,14 +9,11 @@ def definiteness(matrix):
     """ definiteness """
     if type(matrix) != np.ndarray:
         raise TypeError("matrix must be a numpy.ndarray")
-    n = matrix.shape[0]
-    out = []
     try:
-        out.append(np.linalg.det(matrix))
+        out = np.linalg.eig(matrix)
     except Exception as e:
         return None
-    for i in range(1, n):
-        out.append(np.linalg.det(matrix[i:, i:]))
+    out = out[0]
     true = False
     false = False
     zeros = False
