@@ -23,7 +23,7 @@ def determinant_fast(A):
             crScaler = AM[i][fd] / AM[fd][fd]
             for j in range(n):
                 AM[i][j] = AM[i][j] - crScaler * AM[fd][j]
-    product = 1.0
+    product = 1
     for i in range(n):
         product *= AM[i][i]
     return product
@@ -48,4 +48,4 @@ def determinant(matrix):
         if len(val) != n:
             raise ValueError("matrix must be a square matrix")
     res = determinant_fast(matrix)
-    return int(res)
+    return int(res) if int(res) == res else res
