@@ -7,7 +7,7 @@ import numpy as np
 
 def mean_cov(X):
     """ mean and covariance """
-    if len(X.shape) != 2 or type(X) is not np.ndarray:
+    if type(X) is not np.ndarray or len(X.shape) != 2:
         raise TypeError("X must be a 2D numpy.ndarray")
     n, d = X.shape
     if n < 2:
