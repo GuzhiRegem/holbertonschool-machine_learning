@@ -2,7 +2,6 @@
 """
     module
 """
-import numpy as np
 
 
 def mean_cov(X):
