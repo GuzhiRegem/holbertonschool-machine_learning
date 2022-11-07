@@ -4,6 +4,7 @@
 """
 import numpy as np
 
+
 def mean_cov(X):
     """ mean and covariance """
     if len(X.shape) != 2:
