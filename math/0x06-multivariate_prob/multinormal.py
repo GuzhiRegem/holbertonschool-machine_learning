@@ -15,7 +15,7 @@ class MultiNormal:
             raise ValueError("data must contain multiple data points")
         self.mean = np.mean(data, axis=1, keepdims=True)
         self.cov = np.dot(data - self.mean, data.T - self.mean.T) / (n - 1)
-    
+
     def pdf(self, x):
         """ pdf """
         if type(x) is not np.ndarray:
