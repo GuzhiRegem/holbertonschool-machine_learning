@@ -2,6 +2,7 @@
 """
     module
 """
+import numpy as np
 
 
 def mean_cov(X):
@@ -14,4 +15,3 @@ def mean_cov(X):
     mean = np.mean(X, axis=0, keepdims=True)
     cov = np.dot(X.T - mean.T, X - mean) / (n - 1)
     return mean, cov
-    
