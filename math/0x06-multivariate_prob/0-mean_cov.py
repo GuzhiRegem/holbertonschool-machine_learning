@@ -4,21 +4,6 @@
 """
 import numpy as np
 
-def cov(a, b):
-
-    if len(a) != len(b):
-        return
-
-    a_mean = np.mean(a)
-    b_mean = np.mean(b)
-
-    sum = 0
-
-    for i in range(0, len(a)):
-        sum += ((a[i] - a_mean) * (b[i] - b_mean))
-
-    return sum/(len(a)-1)
-
 def mean_cov(X):
     """ mean and covariance """
     if len(X.shape) != 2:
