@@ -14,4 +14,4 @@ class MultiNormal:
         if n < 2:
             raise ValueError("data must contain multiple data points")
         self.mean = np.mean(data, axis=0, keepdims=True)
-        self.cov = np.dot(data.T - mean.T, data - mean) / (n - 1)
+        self.cov = np.dot(data.T - self.mean.T, data - self.mean) / (n - 1)
