@@ -8,7 +8,7 @@ import numpy as np
 def correlation(C):
     """ correlation """
     if type(C) is not np.ndarray:
-        raise TypeError("X must be a 2D numpy.ndarray")
+        raise TypeError("X must be a 2D numpy.ndarrayy")
     if len(C.shape) != 2 or C.shape[0] != C.shape[1]:
         raise ValueError("C must be a 2D square matrix")
     std = np.sqrt(np.diag(C))
