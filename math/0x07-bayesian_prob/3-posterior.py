@@ -5,7 +5,7 @@
 import numpy as np
 
 
-def intersection(x, n, P, Pr):
+def posterior(x, n, P, Pr):
     """ likelihood """
     if (type(n) != int) or (n <= 0):
         raise ValueError("n must be a positive integer")
