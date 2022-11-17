@@ -2,7 +2,7 @@
 """
     module
 """
-import numpy as np
+import sklearn.mixture
 
 
 def gmm(X, k):
