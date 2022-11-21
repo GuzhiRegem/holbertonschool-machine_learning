@@ -7,4 +7,7 @@ import numpy as np
 
 def initialize(X, k):
     """ initialize """
-    return None
+    n, d = X.shape
+    a_min = X.min()
+    a_max = X.max()
+    return np.random.uniform(a_min, a_max, size=(k, d))
