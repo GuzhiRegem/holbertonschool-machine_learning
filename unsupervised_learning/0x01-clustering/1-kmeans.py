@@ -4,9 +4,11 @@
 """
 import numpy as np
 
+
 def get_clusters(X, C):
     clus = C[:, np.newaxis]
     return np.argmin(np.sqrt(np.sum(np.square(X - clus), axis=2)), axis=0)
+
 
 def kmeans(X, k, iterations=1000):
     """ initialize """
