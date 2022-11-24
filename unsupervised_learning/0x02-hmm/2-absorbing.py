@@ -7,10 +7,21 @@ import numpy as np
 
 def absorbing(P):
     """ markov_chain regular """
-    if type(P) is not np.ndarray or len(P.shape) != 2:
+    if len(P.shape) != 2:
+        return None
+    n1, n2 = P.shape
+    if (n1 != n2) or type(P) is not np.ndarray:
+        return None
+
+    D = np.diagonal(P)
+    if (D == 1).all():
+        return True
+    if not (D == 1).any():
         return False
-    # save value of n and check that P is square
-    n, n_check = P.shape
-    if n != n_check:
-        return False
+
+    for i in range(n1):
+        for j in range(n2):
+            if (i == j) and (i + 1 < len(P)):
+                if P[i + 1][j] == 0 and P[i][j + 1] == 0:
+                    return False
     return True
