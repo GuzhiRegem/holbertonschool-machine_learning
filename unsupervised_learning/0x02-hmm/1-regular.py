@@ -7,12 +7,16 @@ import numpy as np
 
 def regular(P):
     """ markov_chain regular """
-    try:
-        p = P - np.eye(P.shape[0])
-        for ii in range(p.shape[0]):
-            p[0,ii] = 1  
-        P0 = np.zeros((p.shape[0],1))    
-        P0[0] = 1
-        return np.matmul(np.linalg.inv(p),P0)
-    except Exception as e:
+    if type(P) is not np.ndarray or len(P.shape) != 2:
         return None
+    n, n_check = P.shape
+    if n != n_check:
+        return None
+    if not (P > 0).all():
+        return None
+    Q = P - np.identity(n)
+    ones = np.ones((n,))
+    Qe = np.c_[Q, ones]
+    QTQ = np.matmul(Qe, Qe.T)
+    res = np.linalg.solve(QTQ, ones)
+    return np.expand_dims(res, axis=0)
