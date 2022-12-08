@@ -12,17 +12,25 @@ def autoencoder(input_dims, filters, latent_dims):
         "encod": K.Input(shape=(input_dims,)),
         "decod": K.Input(shape=(latent_dims,))
     }
+    conv_conf = {
+        "activation": "relu",
+        "kernel_size": (3, 3),
+        "padding": "same"
+    }
 
     out = inputs["encod"]
-    for val in hidden_layers:
-        out = L.Dense(val, activation="relu")(out)
-    out = L.Dense(latent_dims, activation="relu")(out)
+    for val in filters:
+        out = L.Conv2D(val, **conv_conf)(out)
+        out = L.MaxPooling2D((2, 2), padding="same")(out)
     encoder = K.Model(inputs=inputs["encod"], outputs=out)
 
     out = inputs["decod"]
-    for val in reversed(hidden_layers):
-        out = L.Dense(val, activation="relu")(out)
-    out = L.Dense(input_dims, activation="sigmoid")(out)
+    for val in reversed(filters):
+        out = L.Conv2D(val, **conv_conf)(out)
+        out = L.UpSampling2D((2, 2))(out)
+    out = L.Conv2D(filters[0], **conv_conf, padding="same")(out)
+    out = L.UpSampling2D((2, 2))(out)
+    out = L.Conv2D(input_dims[2], **conv_conf, activation="sigmoid")(out)
     decoder = K.Model(inputs=inputs["decod"], outputs=out)
 
     auto = K.Model(
