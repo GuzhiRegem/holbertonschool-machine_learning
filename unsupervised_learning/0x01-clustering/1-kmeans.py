@@ -6,7 +6,7 @@ import numpy as np
 
 
 def kmeans(X, k, iterations=1000):
-    """ kmeans """
+    """kmeans"""
     try:
         n, d = X.shape
         min_vals = np.min(X, axis=0)
