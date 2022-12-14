@@ -11,22 +11,19 @@ def get_clusters(X, C):
 
 
 def kmeans(X, k, iterations=1000):
-    """ initialize """
-    if type(X) is not np.ndarray or len(X.shape) != 2:
-        return None
-    if type(k) is not int or k <= 0:
-        return None
     n, d = X.shape
-    a_min = np.min(X, 0)
-    a_max = np.max(X, 0)
-    out = np.random.uniform(a_min, a_max, size=(k, d))
-    idxs = get_clusters(X, out)
-    for ite in range(iterations):
-        for c in range(k):
-            eq = idxs == c
-            if X[eq].size == 0:
-                out[c] = np.random.uniform(a_min, a_max, size=(1, d))
-            else:
-                out[c] = X[eq].mean(axis=0)
-        idxs = get_clusters(X, out)
-    return out, idxs
+    min_vals = np.min(X, axis=0)
+    max_vals = np.max(X, axis=0)
+    C = np.random.uniform(low=min_vals, high=max_vals, size=(k, d))
+    for _ in range(iterations):
+        clss = np.argmin(np.sum((X[:, None, :] - C)**2, axis=2), axis=1)
+        C_new = np.array([
+            X[clss == c].mean(axis=0)
+            if np.any(clss == c)
+            else min_vals + (max_vals - min_vals) * np.random.random(d)
+            for c in range(k)
+        ])
+        if np.all(C == C_new):
+            break
+        C = C_new
+    return C, clss
