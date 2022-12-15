@@ -2,19 +2,16 @@
 
 import numpy as np
 RNNCell = __import__('0-rnn_cell').RNNCell
+rnn = __import__('1-rnn').rnn
 
-np.random.seed(0)
+np.random.seed(1)
 rnn_cell = RNNCell(10, 15, 5)
-print("Wh:", rnn_cell.Wh)
-print("Wy:", rnn_cell.Wy)
-print("bh:", rnn_cell.bh)
-print("by:", rnn_cell.by)
 rnn_cell.bh = np.random.randn(1, 15)
 rnn_cell.by = np.random.randn(1, 5)
-h_prev = np.random.randn(8, 15)
-x_t = np.random.randn(8, 10)
-h, y = rnn_cell.forward(h_prev, x_t)
-print(h.shape)
-print(h)
-print(y.shape)
-print(y)
+X = np.random.randn(6, 8, 10)
+h_0 = np.zeros((8, 15))
+H, Y = rnn(rnn_cell, X, h_0)
+print(H.shape)
+print(H)
+print(Y.shape)
+print(Y)

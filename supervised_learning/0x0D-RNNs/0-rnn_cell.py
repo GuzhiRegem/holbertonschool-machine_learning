@@ -4,12 +4,13 @@
 """
 import numpy as np
 
+
 class RNNCell:
     """ RNNCell """
     def __init__(self, i, h, o):
         """ init """
-        self.Wh = np.random.normal(size=(h+i, h))
-        self.Wy = np.random.normal(size=(h, o))
+        self.Wh = np.random.randn(h+i, h)
+        self.Wy = np.random.randn(h, o)
         self.bh = np.zeros((1, h))
         self.by = np.zeros((1, o))
 
@@ -22,5 +23,5 @@ class RNNCell:
 
     def softmax(self, x):
         """ softmax """
-        e_x = np.exp(x - np.max(x))
-        return e_x / e_x.sum()
+        e_x = np.exp(x - np.max(x, axis=1, keepdims=True))
+        return e_x / e_x.sum(axis=1, keepdims=True)
