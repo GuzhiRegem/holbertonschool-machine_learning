@@ -7,4 +7,5 @@ import sklearn.cluster
 
 def kmeans(X, k):
     """ initialize """
-    return None
+    kmeans = sklearn.cluster.KMeans(k).fit(X)
+    return kmeans.cluster_centers_, kmeans.labels_
