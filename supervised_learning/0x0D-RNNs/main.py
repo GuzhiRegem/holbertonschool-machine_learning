@@ -1,32 +1,21 @@
 #!/usr/bin/env python3
 
 import numpy as np
-LSTMCell = __import__('3-lstm_cell').LSTMCell
+RNNCell = __import__('0-rnn_cell').RNNCell
+deep_rnn = __import__('4-deep_rnn').deep_rnn
 
-np.random.seed(3)
-lstm_cell = LSTMCell(10, 15, 5)
-print("Wf:", lstm_cell.Wf)
-print("Wu:", lstm_cell.Wu)
-print("Wc:", lstm_cell.Wc)
-print("Wo:", lstm_cell.Wo)
-print("Wy:", lstm_cell.Wy)
-print("bf:", lstm_cell.bf)
-print("bu:", lstm_cell.bu)
-print("bc:", lstm_cell.bc)
-print("bo:", lstm_cell.bo)
-print("by:", lstm_cell.by)
-lstm_cell.bf = np.random.randn(1, 15)
-lstm_cell.bu = np.random.randn(1, 15)
-lstm_cell.bc = np.random.randn(1, 15)
-lstm_cell.bo = np.random.randn(1, 15)
-lstm_cell.by = np.random.randn(1, 5)
-h_prev = np.random.randn(8, 15)
-c_prev = np.random.randn(8, 15)
-x_t = np.random.randn(8, 10)
-h, c, y = lstm_cell.forward(h_prev, c_prev, x_t)
-print(h.shape)
-print(h)
-print(c.shape)
-print(c)
-print(y.shape)
-print(y)
+np.random.seed(1)
+cell1 = RNNCell(10, 15, 1)
+cell2 = RNNCell(15, 15, 1)
+cell3 = RNNCell(15, 15, 5)
+rnn_cells = [cell1, cell2, cell3]
+for rnn_cell in rnn_cells:
+    rnn_cell.bh = np.random.randn(1, 15)
+cell3.by = np.random.randn(1, 5)
+X = np.random.randn(6, 8, 10)
+H_0 = np.zeros((3, 8, 15))
+H, Y = deep_rnn(rnn_cells, X, H_0)
+print(H.shape)
+print(H)
+print(Y.shape)
+print(Y)
