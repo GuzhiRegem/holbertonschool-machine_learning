@@ -6,7 +6,7 @@ import numpy as np
 
 
 def sigmoid(var):
-    """Do sigmoid on var"""
+    """ sigmoid """
     ex = np.exp(var)
     return ex / (1 + ex)
 

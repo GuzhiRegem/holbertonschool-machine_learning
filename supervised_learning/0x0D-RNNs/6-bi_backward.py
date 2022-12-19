@@ -6,15 +6,22 @@ import numpy as np
 
 
 class BidirectionalCell:
-    """ bi directional """
+    """Bidirectional cell class"""
     def __init__(self, i, h, o):
         """ init """
-        pass
+        self.Whf = np.random.normal(size=(i + h, h))
+        self.Whb = np.random.normal(size=(i + h, h))
+        self.Wy = np.random.normal(size=(h * 2, o))
+        self.bhf = np.zeros((1, h))
+        self.bhb = np.zeros((1, h))
+        self.by = np.zeros((1, o))
 
     def forward(self, h_prev, x_t):
         """ forward """
-        return None, None
-    
-    def backward(self, h_next, x_t):
+        concat = np.concatenate((h_prev, x_t), 1)
+        return np.tanh(np.matmul(concat, self.Whf) + self.bhf)
+
+    def backward(self, h_prev, x_t):
         """ backward """
-        return None
+        concat = np.concatenate((h_prev, x_t), 1)
+        return np.tanh(np.matmul(concat, self.Whb) + self.bhb)
