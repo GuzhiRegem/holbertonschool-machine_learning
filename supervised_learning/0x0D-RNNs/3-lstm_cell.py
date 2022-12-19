@@ -5,9 +5,11 @@
 import numpy as np
 
 def sigmoid(x):
+    """ sigmoid """
     return 1 / (1 + np.exp(-x))
 
 def softmax(x):
+    """ softmax """
     exp_x = np.exp(x)
     return exp_x / np.sum(exp_x, axis=1, keepdims=True)
 
