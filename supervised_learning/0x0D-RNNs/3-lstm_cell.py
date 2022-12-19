@@ -4,9 +4,11 @@
 """
 import numpy as np
 
+
 def sigmoid(x):
     """ sigmoid """
     return 1 / (1 + np.exp(-x))
+
 
 def softmax(x):
     """ softmax """
@@ -30,9 +32,11 @@ class LSTMCell:
         self.by = np.zeros((1, o))
 
     def sigmoid(self, x):
+        """ sigmoid """
         return 1 / (1 + np.exp(-x))
 
     def forward(self, h_prev, c_prev, x_t):
+        """ forward """
         concat = np.concatenate((h_prev, x_t), axis=1)
         f = self.sigmoid(np.dot(self.Wf, concat) + self.bf)
         u = self.sigmoid(np.dot(self.Wu, concat) + self.bu)
@@ -41,5 +45,4 @@ class LSTMCell:
         o = self.sigmoid(np.dot(self.Wo, concat) + self.bo)
         h_next = o * np.tanh(c_next)
         y = softmax(np.dot(self.Wy, h_next) + self.by)
-        
         return h_next, c_next, y
