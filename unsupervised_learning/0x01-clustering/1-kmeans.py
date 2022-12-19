@@ -5,47 +5,38 @@
 import numpy as np
 
 
+def initialize(X, k):
+    """Initialize cluster centroids for kmeans"""
+    if type(k) is not int or k <= 0:
+        return None
+    try:
+        return np.random.uniform(np.amin(X, axis=0),
+                                 np.amax(X, axis=0), (k, X.shape[1]))
+    except Exception:
+        return None
+
+
 def kmeans(X, k, iterations=1000):
-    """kmeans"""
-    if not isinstance(X, np.ndarray) or len(X.shape) != 2:
+    """Perform kmeans on some data"""
+    if type(iterations) is not int or iterations < 1:
         return None, None
-    if not isinstance(k, int) or k <= 0:
+    centroids = initialize(X, k)
+    if centroids is None:
         return None, None
-    if not isinstance(iterations, int) or iterations <= 0:
-        return None, None
-
-    # Setting min and max values per col
-    n, d = X.shape
-    X_min = X.min(axis=0)
-    X_max = X.max(axis=0)
-
-    # Centroid
-    C = np.random.uniform(X_min, X_max, size=(k, d))
-
-    # Loop for the maximum number of iterations
-    for i in range(iterations):
-
-        # initializes k centroids by selecting them from the data points
-        centroids = np.copy(C)
-        centroids_extended = C[:, np.newaxis]
-
-        # distances also know as euclidean distance
-        distances = np.sqrt(((X - centroids_extended) ** 2).sum(axis=2))
-        # an array containing the index to the nearest centroid for each point
-        clss = np.argmin(distances, axis=0)
-
-        # Assign all points to the nearest centroid
-        for c in range(k):
-            if X[clss == c].size == 0:
-                C[c] = np.random.uniform(X_min, X_max, size=(1, d))
+    assigns = None
+    while iterations:
+        iterations -= 1
+        prev = centroids.copy()
+        assigns = np.apply_along_axis(np.subtract, 1, X, centroids)
+        assigns = np.argmin(np.square(assigns).sum(axis=2), axis=1)
+        for cent in range(centroids.shape[0]):
+            Xs = np.argwhere(assigns == cent)
+            if Xs.shape[0] == 0:
+                centroids[cent] = initialize(X, 1)
             else:
-                C[c] = X[clss == c].mean(axis=0)
-
-        centroids_extended = C[:, np.newaxis]
-        distances = np.sqrt(((X - centroids_extended) ** 2).sum(axis=2))
-        clss = np.argmin(distances, axis=0)
-
-        if (centroids == C).all():
-            break
-
-    return C, clss
+                centroids[cent] = np.mean(X[Xs], axis=0)
+        if np.all(prev == centroids):
+            return centroids, assigns
+    assigns = np.apply_along_axis(np.subtract, 1, X, centroids)
+    assigns = np.argmin(np.square(assigns).sum(axis=2), axis=1)
+    return centroids, assigns
