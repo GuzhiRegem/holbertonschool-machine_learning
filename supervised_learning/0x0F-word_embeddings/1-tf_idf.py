@@ -12,4 +12,3 @@ def tf_idf(sentences, vocab=None):
     embeddings = x.toarray()
     features = list(vectorizer.get_feature_names_out())
     return embeddings, features
-
